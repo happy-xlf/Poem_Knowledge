@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机器问答</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <link rel="stylesheet" href="../static/css/chat_poem.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/template/chat_poem.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+</head>
+<body>
+    <div id="chatroom">
+        <div id="output-area">
+            <div class="null" style="height: 100%"></div>
+        </div>
+        <div id="input-area">
+            <label>
+                <textarea placeholder="输入问题后按Enter键或点击“发送”按钮进行提问" id="input-dialog" name="input-question"></textarea>
+            </label>
+        </div>
+        <div id="buttons-area">
+            <button id="send-btn">发送</button>
+            <button id="clear-btn">清空</button>
+        </div>
+    </div>
+</body>
+</html>

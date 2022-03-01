@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/show_data.css" />
+    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
+    <title>数据可视化</title>
+</head>
+
+<body>
+    <!-- 头部盒子 -->
+    <header>
+        <h1>中华古诗词数据可视化</h1>
+        <div class="showTime"></div>
+        // 格式： 当前时间：2020年3月17-0时54分14秒
+        <div class="houtai">
+            <a href="/index" class="layui-btn layui-btn-normal">后台管理</a>
+        </div>
+        <script>
+            var t = null;
+            t = setTimeout(time, 1000); //開始运行
+            function time() {
+                clearTimeout(t); //清除定时器
+                dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours(); //获取时
+                var m = dt.getMinutes(); //获取分
+                var s = dt.getSeconds(); //获取秒
+                document.querySelector(".showTime").innerHTML =
+                    "当前时间：" +
+                    y +
+                    "年" +
+                    mt +
+                    "月" +
+                    day +
+                    "-" +
+                    h +
+                    "时" +
+                    m +
+                    "分" +
+                    s +
+                    "秒";
+                t = setTimeout(time, 1000); //设定定时器，循环运行
+            }
+        </script>
+    </header>
+    <!-- 页面主体部分 -->
+    <section class="mainbox">
+        <!-- 左边部分 -->
+        <div class="column">
+            <div class="panel bar">
+                <h2>各朝代诗集总数</h2>
+                <div class="chart">图标</div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line">
+                <h2>
+                    宋词-意象词频
+                </h2>
+                <div class="chart" id="yun">图标</div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie">
+                <h2>唐朝-情感分布</h2>
+                <div class="chart">图标</div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+        <!-- 中间部分 -->
+        <div class="column">
+            <!-- no模块制作 -->
+            <div class="no">
+                <div class="no-hd">
+                    <ul>
+                        <li style="color: greenyellow">480122</li>
+                        <li style="color: sandybrown">19240</li>
+                    </ul>
+                </div>
+                <div class="no-bd">
+                    <ul>
+                        <li>诗词总个数</li>
+                        <li>诗人总个数</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 地图模块 -->
+            <div class="map">
+                <div class="map1"></div>
+                <div class="map2"></div>
+                <div class="map3"></div>
+                <h2 style="text-align: center;color: white">诗人-旅游图</h2>
+                <div class="chart">地图模块</div>
+            </div>
+        </div>
+        <!-- 右边部分 -->
+        <div class="column">
+            <div class="panel bar2">
+                <h2>宋代-词牌名热度</h2>
+                <div class="chart">图标</div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line2">
+                <h2>朝代-情感曲线</h2>
+                <div class="chart">图标</div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie2">
+                <h2>宋代-诗词类别</h2>
+                <div class="chart">图标</div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </section>
+    <!-- 引入屏幕适配js -->
+    <script src="/static/js/flexible.js"></script>
+    <!-- 引入ECharts库 -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/echarts.min.js"></script>
+    <script src="/static/js/echarts-wordcloud.min.js"></script>
+    <!-- 引入中国地图文件js -->
+    <script src="/static/js/china.js"></script>
+    <script src="/static/js/template/show_data.js"></script>
+
+</body>
+
+</html>

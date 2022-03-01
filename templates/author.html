@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>诗人图谱</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/xadmin.css">
+    <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
+    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js"></script>
+    <script type="text/javascript" src="../static/js/template/author.js"></script>
+    <script src="../static/js/d3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="../static/js/china.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    body{
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+    }
+    #top_zi{
+        font-size: 16px;
+        font-family: 华文楷体
+    }
+    #big_title{
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        color: #00743f;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        margin-top: 25px;
+        margin-bottom: 1em;
+        position: relative;
+        border-bottom: 3px solid orange;
+    }
+    #senten{
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        color: black;
+        text-indent: 2em;
+    }
+    #shu_poemer{
+        margin: 0 auto 30px auto;
+        padding: 20px;
+        border: 1px solid #c2c0b8;
+        background-color: #fff;
+        /* background: #fff url(http://tympanus.net/Tutorials/OriginalHoverEffects/images/bgimg.jpg) repeat; */
+        box-shadow: 0 0 60px 10px rgb(0 0 0 / 10%) inset, 0 5px 0 -4px #fff, 0 5px 0 -3px #c2c0b8, 0 11px 0 -8px #fff, 0 11px 0 -7px #c2c0b8, 0 17px 0 -12px #fff, 0 17px 0 -11px #c2c0b8;
+    }
+    #left-col{
+        border-right: 1px solid rgb(192, 196, 204);
+    }
+    #left-title{
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        color: #0294a5;font-weight: bold;
+    }
+    #p-left-message{
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        border-bottom: 1px dashed #DCDFE6;
+    }
+    #left-content,span{
+        color: #696969;
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+    }
+    #right-col{
+        margin-left: 1em;
+        margin-bottom: 0.5em;
+        border-bottom: 1px dashed #DCDFE6;
+    }
+    #p-name-rigth{
+        text-align: center;
+        color: #0294a5;
+        font-weight: bold;
+    }
+    #right-content{
+        color: #696969;
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+    }
+    .card-body{
+        color: #696969;
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+    }
+    .card-body>p{
+        text-indent: 2em;
+    }
+    .card-body>p>strong{
+        text-indent: 0;
+    }
+    #sentence_formal{
+        color: #696969;
+        font-size: 14px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+    }
+
+    @font-face
+    {
+        font-family: myfont;
+        src: url('../static/fonts/kaiti.ttf')
+    }
+    .poem-title{
+        margin: 0 0.8em;
+        text-align: center;
+        font-size: 15px;
+        font-family: myfont;
+    }
+    .poem-tag{
+        margin: 0 0.8em;
+        text-align: center;
+        font-size: 14px;
+        color: gray;
+        font-family: myfont;
+    }
+    .bk_img{
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 245px;
+        height: 100px;
+    }
+    #he{
+        width: 245px;
+        height: 320px;
+        float: left;
+        padding: 10px 10px 10px 10px;
+    }
+    .shici{
+        text-align: center;
+        line-height: 2em;
+        font-size: 16px;
+        font-family: myfont;
+        color: #333333;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp:3
+    }
+    .layui-card:hover {
+    box-shadow: 0px 0px 5px #888888;/* 边框阴影 */
+    -moz-box-shadow: 0px 0px 5px #888888; /* 老的 Firefox */  }
+
+    #shown{
+        -moz-box-shadow: 2px 2px 10px #909090;
+       -webkit-box-shadow: 2px 2px 10px #909090;
+       box-shadow:2px 2px 10px #909090;
+    }
+
+    .nodetext {
+        font-size: 12px ;
+        font-family: SimSun;
+        fill:#000000;
+    }
+
+    .linetext {
+        font-size: 12px ;
+        font-family: SimSun;
+        {#fill:#1f77b4;#}
+        fill:#0000FF;
+        fill-opacity:0.0;
+    }
+
+    .circleImg {
+      stroke: #ff7f0e;
+      stroke-width: 1.5px;
+    }
+
+
+</style>
+<body>
+<input type="hidden" id="geomap">
+<div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                 <div class="layui-card">
+                     <div class="layui-card-body">
+                         <!-- 诗人检索框 -->
+                         <div class='layui-row'>
+                            <div class="layui-col-md15" style="padding-left: 10px;padding-top: 15px">
+                                <div class="layui-input-inline" style="width: 600px">
+                                        <input type="text" id="search_name" value="{{name}}" required name="search_name" lay-verify="title" autocomplete="off" placeholder="请输入诗人姓名" class="layui-input">
+                                </div>
+                                <button type="button" class="layui-btn" id="search">
+                                        <i><img src="../static/icon/find.png" style="width: 15px;"></i>
+                                </button>
+                                <br>
+                            </div>
+                         </div>
+                         <br>
+                         <hr class="layui-border-grey">
+                        <!-- 诗人基本信息 -->
+                         <div class='layui-row'>
+                            <div class="layui-col-md10" style="padding-left: 10px">
+                                <img src="../static/icon/author.png" style="width: 20px;height: 20px;">
+                                <span id="top_zi">李白</span>&nbsp;&nbsp;
+                                <span id="desty" style="font-size: 14px;color: gray;font-family: 华文楷体">唐代</span>
+                            </div>
+                         </div>
+                         <br>
+                         <!-- tab展示诗人详细信息 -->
+                         <div class='layui-row'>
+                            <div class="layui-col-md10" style="padding-left: 10px">
+                                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                                    <ul class="layui-tab-title">
+                                        <li class="layui-this" id="poem_begin">基本介绍</li>
+                                        <li>诗人画像</li>
+                                        <li>诗人图谱</li>
+                                        <li>诗人轨迹</li>
+                                        <li>诗人生平</li>
+                                        <li>诗人合称</li>
+                                    </ul>
+                                <div class="layui-tab-content" style="height: auto;width: 1100px">
+                                    <div id="pomer_tab" class="layui-tab-item layui-show">
+{#                                        <div class="layui-row">#}
+{#                                            <ul class="layui-timeline">#}
+{#                                                #}
+{#                                                  <li class="layui-timeline-item">#}
+{#                                                    <i class="layui-icon layui-timeline-axis"></i>#}
+{#                                                    <div class="layui-timeline-content layui-text">#}
+{#                                                      <h3 class="layui-timeline-title">735</h3>#}
+{#                                                      <div class="layui-card-body" id="shown">#}
+{#                                                        开始齐赵之游<br>杜甫的父亲时任兖州司马一职<br>杜甫于是赴兖州省亲#}
+{#                                                      </div>#}
+{#                                                    </div>#}
+{#                                                  </li>#}
+{#                                                  <li class="layui-timeline-item">#}
+{#                                                    <i class="layui-icon layui-timeline-axis"></i>#}
+{#                                                    <div class="layui-timeline-content layui-text">#}
+{#                                                      <h3 class="layui-timeline-title">744</h3>#}
+{#                                                      <div class="layui-card-body" id="shown">#}
+{#                                                          两人相约同游梁、宋（今河南开封、商丘一带）<br>杜甫在洛阳与被唐玄宗赐金放还的李白相遇#}
+{#                                                      </div>#}
+{#                                                    </div>#}
+{#                                                  </li>#}
+{#                                                  <li class="layui-timeline-item">#}
+{#                                                    <i class="layui-icon layui-timeline-axis"></i>#}
+{#                                                    <div class="layui-timeline-content layui-text">#}
+{#                                                      <h3 class="layui-timeline-title">747</h3>#}
+{#                                                      <div class="layui-card-body" id="shown">#}
+{#                                                          不得不转走权贵之门<br>科举之路既然行不通<br>投赠干谒等<br>但都无结果<br>杜甫为实现自己的政治理想#}
+{#                                                      </div>#}
+{#                                                    </div>#}
+{#                                                  </li>#}
+{#                                                <li class="layui-timeline-item">#}
+{#                                                    <i class="layui-icon layui-timeline-axis"></i>#}
+{#                                                    <div class="layui-timeline-content layui-text">#}
+{#                                                      <h3 class="layui-timeline-title">748</h3>#}
+{#                                                      <div class="layui-card-body" id="shown">#}
+{#                                                          二人握手相别<br>回到长安<br>杜甫结束了“放荡齐赵间#}
+{#                                                      </div>#}
+{#                                                    </div>#}
+{#                                                  </li>#}
+{#                                                <li class="layui-timeline-item">#}
+{#                                                    <i class="layui-icon layui-timeline-axis"></i>#}
+{#                                                    <div class="layui-timeline-content layui-text">#}
+{#                                                      <h3 class="layui-timeline-title">751</h3>#}
+{#                                                      <div class="layui-card-body" id="shown">#}
+{#                                                          得到玄宗的赏识<br>然而仅得“参列选序”资格<br>杜甫于是在天宝九载冬天预献三《大礼赋》<br>命待制在集贤院<br>玄宗将举行祭祀太清宫、太庙和天地的三大盛典<br>因主试者仍为李林甫所以没有得到官职<br>等候分配#}
+{#                                                      </div>#}
+{#                                                    </div>#}
+{#                                                  </li>#}
+{##}
+{##}
+{#                                                </ul>#}
+{#                                        </div>#}
+                                    </div>
+
+{#                                    <div class="layui-tab-item">#}
+{##}
+{#                                        <div class="layui-row" id="shu_poemer">#}
+{#                                            <div class="layui-col-md5" id="left-col">#}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        字#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        太白#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        号#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        谪仙人#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        朝代#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        唐代#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        出生时间#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        701年#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        游历地点#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        长江,安州,贵州,七宝,湖北省,随县,四川省,江夏,广西,大胜,河北省,山西省,河北,成都,浙江省,荆州,峨眉山,中原,宣城,安陆,北都,武汉市,金陵,东鲁,大破,河南省,洛阳,长安,梓州,青莲乡,武昌县,太原,南道,洛城,江陵,重庆市,秦州,开封市,德州,中国,东都,南阳市,江苏省,桐梓,当涂县,开山,扬州,三峡#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        去世时间#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        762年#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                                <div class='layui-row' id="p-left-message">#}
+{#                                                    <div class="layui-col-md3" id="left-title">#}
+{#                                                        合称称号#}
+{#                                                    </div>#}
+{#                                                    <div class="layui-col-md9" id="left-content">#}
+{#                                                        大李杜,饮中八仙#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{##}
+{#                                            </div>#}
+{#                                            <div class="layui-col-md6" id="right-col">#}
+{#                                                <div class="layui-row" id="p-name-rigth">#}
+{#                                                    部分作品#}
+{#                                                </div>#}
+{#                                                <div class="layui-row" id="right-content">#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{##}
+{#                                        <div class="layui-row">#}
+{#                                            <span id="big_title">李白的名句</span>#}
+{#                                            <br>#}
+{#                                            <br>#}
+{#                                            <div id="famous_sent">#}
+{#                                                <p id="senten">#}
+{#                                                    入我相思门，知我相思苦。&nbsp;&nbsp;&nbsp;&nbsp;#}
+{#                                                    <span id="sentence_formal">三五七言 / 秋风词</span>#}
+{#                                                </p>#}
+{#                                            </div>#}
+{##}
+{#                                            <div id="demo11" style="float: right"></div>#}
+{#                                        </div>#}
+{##}
+{##}
+{#                                        <div class="layui-row">#}
+{#                                            <span id="big_title">李白的名句</span>#}
+{#                                            <br>#}
+{#                                            <br>#}
+{#                                            <div id="all_shici" class="layui-row layui-col-space15">#}
+{#    #}
+{#                                            </div>#}
+{#                                            <div id="demo12" style="padding-right: 225px;float: right"></div>#}
+{#                                        </div>#}
+{##}
+{##}
+{#                                    </div>#}
+{#                                    <div class="layui-tab-item">内容3</div>#}
+{#                                    <div class="layui-tab-item">内容4</div>#}
+{#                                    <div class="layui-tab-item">内容5</div>#}
+{#                                    <div class="layui-tab-item">内容6</div>#}
+                            </div>
+                            </div>
+                         </div>
+                         </div>
+                     </div>
+
+                 </div>
+            </div>
+            <div id="demo11" style="padding-right: 225px;float: right"></div>
+        </div>
+ </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>诗词鉴赏</title>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="../static/css/font.css">
+    <link rel="stylesheet" href="../static/css/xadmin.css">
+    <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
+    <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/xadmin.js"></script>
+    <script type="text/javascript" src="../static/js/template/poem_appearance.js"></script>
+    <script src="../static/js/d3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="../static/js/china.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    @font-face
+    {
+        font-family: myfont;
+        src: url('../static/fonts/gbk_kaiti.ttf')
+    }
+    #poem_row{
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .poem-root-div {
+        background: hsla(0, 0%, 100%, .6);
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .mate{
+        text-align: center;
+        margin-bottom: 10px;
+        font-family: myfont;
+        line-height: 2em;
+    }
+    .title-line{
+        font-family: myfont;
+        margin-bottom: 5px;
+        font-size: 1.6em;
+    }
+    .title-word{
+        font-family: myfont;
+        margin-bottom: 5px;
+        font-size: 1.2em;
+    }
+    .aux3{
+        font-size: 0.8em;
+        font-family: myfont;
+        /* color: #C0C4CC; */
+        color: #909399;
+    }
+    .content{
+        font-family: myfont;
+        letter-spacing: 0.2em;
+        text-align: center;
+        font-size: 1.5em;
+    }
+    .word{
+        font-family: myfont;
+        font-size: 1.2em;
+    }
+    .word:hover{
+        color: #009f95;
+    }
+    #heigh{
+        height: 1px;
+    }
+    #big_title{
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        color: #00743f;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        margin-top: 25px;
+        margin-bottom: 1em;
+        position: relative;
+        border-bottom: 3px solid orange;
+    }
+    #senten{
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        color: black;
+
+        text-indent: 2em;
+    }
+    #senten_shi{
+        font-size: 18px;
+        font-family: myfont;
+        color: gray;
+    }
+    @font-face
+    {
+        font-family: myfont2;
+        src: url('../static/fonts/kaiti.ttf')
+    }
+    .poem-title{
+        margin: 0 0.8em;
+        text-align: center;
+        font-size: 15px;
+        font-family: myfont2;
+    }
+    .poem-tag{
+        margin: 0 0.8em;
+        text-align: center;
+        font-size: 14px;
+        color: gray;
+        font-family: myfont2;
+    }
+    .bk_img{
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        width: 245px;
+        height: 100px;
+    }
+    #he{
+        width: 245px;
+        height: 320px;
+        float: left;
+        padding: 10px 10px 10px 10px;
+    }
+    .shici{
+        text-align: center;
+        line-height: 2em;
+        font-size: 16px;
+        font-family: myfont2;
+        color: #333333;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp:3
+    }
+
+    .layui-card:hover {
+    box-shadow: 0px 0px 5px #888888;/* 边框阴影 */
+    -moz-box-shadow: 0px 0px 5px #888888; /* 老的 Firefox */  }
+    .card-body{
+        color: #696969;
+        font-size: 16px;
+        font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+    }
+    .card-body>p{
+        text-indent: 2em;
+    }
+    .card-body>p>strong{
+        text-indent: 0;
+    }
+    #shown{
+        -moz-box-shadow: 2px 2px 10px #909090;
+        -webkit-box-shadow: 2px 2px 10px #909090;
+        box-shadow:2px 2px 10px #909090;
+    }
+    #poem_content{
+        text-align: center;
+    }
+</style>
+<body>
+<div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                 <div class="layui-card">
+                     <div class="layui-card-body">
+                         <!-- 诗人检索框 -->
+                         <div class='layui-row'>
+                            <div class="layui-col-md15" style="padding-left: 10px;padding-top: 15px">
+                                <div class="layui-input-inline" style="width: 600px">
+                                        <input type="text" id="search_name" value="{{poem_name}}" required name="search_name" lay-verify="title" autocomplete="off" placeholder="请输入诗词名" class="layui-input">
+                                </div>
+                                <button type="button" class="layui-btn" id="search">
+                                        <i><img src="../static/icon/find.png" style="width: 15px;"></i>
+                                </button>
+                                <br>
+                            </div>
+                         </div>
+                         <br>
+                         <hr class="layui-border-grey">
+                         <div id="poem_appear">
+                             <!-- 诗人基本信息 -->
+                             <div class='layui-row' style="background-image: url('../static/images/poem_bk.jpg');background-repeat: repeat-y;background-size: 97%;background-position: center top;">
+                                <div id="poem_row" class="layui-col-md10">
+                                    <div class="layui-col-md4" id="heigh"></div>
+                                    <div class="layui-col-md6 poem-root-div">
+                                        <div class="mate">
+                                            <div class="title-line">
+                                                <span class="title-word" id="poem_title"></span>
+                                                <span class="aux3" id="poem_desty"></span>
+                                                <span class="aux3" id="poem_author"></span>
+                                            </div>
+                                            <div class="title-line">
+                                                <span class="aux3" id="formal"></span>
+                                                <span class="aux3" id="tag"></span>
+                                            </div>
+                                        </div>
+                                        <div class="content" id="poem_content">
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md3" id="heigh"></div>
+                                </div>
+                             </div>
+                             <!-- 留出空隙 -->
+                             <br>
+                             <hr class="layui-border-grey">
+                             <!-- tab也展示诗词详情信息 -->
+                             <div class='layui-row'>
+                                <div class="layui-col-md10" style="padding-left: 10px">
+                                    <div class="layui-tab" lay-filter="docDemoTabBrief">
+                                        <ul class="layui-tab-title">
+                                            <li><i class="layui-icon">&#xe60a;</i>基本介绍</li>
+                                            <li><i class="layui-icon">&#xe770;</i>诗人信息</li>
+                                            <li><i class="layui-icon">&#xe705;</i>字词解释</li>
+                                            <li class="layui-this" id="poem_begin"><i class="layui-icon">&#xe62c;</i>情感分析</li>
+                                            <li><i class="layui-icon">&#xe60b;</i>时空背景</li>
+                                        </ul>
+                                        <div class="layui-tab-content" style="height: auto;width: 1100px">
+                                            <div id="poem_tab" class="layui-tab-item layui-show">
+
+{#                                            <div class="layui-tab-item">诗人信息</div>#}
+{#                                            <div class="layui-tab-item">字词解释</div>#}
+{#                                            <div class="layui-tab-item">情感分析</div>#}
+{#                                            <div class="layui-tab-item">时空背景</div>#}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>

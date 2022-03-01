@@ -1,0 +1,237 @@
+<!doctype html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>中华古诗词知识图谱</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="stylesheet" href="../static/css/font.css">
+        <link rel="stylesheet" href="../static/css/xadmin.css">
+        <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
+        <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../static/js/xadmin.js"></script>
+         <script type="text/javascript" src="../static/js/template/index.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script>
+            // 是否开启刷新记忆tab功能
+            // var is_remember = false;
+        </script>
+    </head>
+    <body class="index">
+        <!-- 顶部开始 -->
+        <div class="container">
+            <div class="logo">
+                <a href="./index.html">中华古诗词知识图谱</a></div>
+            <div class="left_open">
+                <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+            </div>
+            <ul class="layui-nav right" lay-filter="">
+                <li class="layui-nav-item to-index">
+                    <a href="/">前台首页</a></li>
+            </ul>
+        </div>
+        <!-- 顶部结束 -->
+        <!-- 中部开始 -->
+        <!-- 左侧菜单开始 -->
+        <div class="left-nav">
+            <div id="side-nav">
+                <ul id="nav">
+                    <!-- 诗人图谱  -->
+                    <li>
+                        <a onclick="xadmin.add_tab('诗人图谱','/author/李白')">
+                            <i class="iconfont left-nav-li" lay-tips="诗人图谱"><img src="../static/icon/poem_graph.png" style="width: 15px;"></i>
+                            <cite>诗人图谱</cite></a>
+                    </li>
+                    <!-- 诗词浏览 -->
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="诗词浏览">&#xe723;</i>
+                            <cite>诗词浏览</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="iconfont">&#xe70b;</i>
+                                    <cite>按朝代浏览</cite>
+                                    <i class="iconfont nav_right">&#xe697;</i></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a onclick="xadmin.add_tab('唐代诗词','/tz_look_poem_desty/唐代')">
+                                            <cite>唐代</cite><span style="font-size: 12px">（48330）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('宋代诗词','/tz_look_poem_desty/宋代')">
+                                            <cite>宋代</cite><span style="font-size: 12px">（200000）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('元代诗词','/tz_look_poem_desty/元代')">
+                                            <cite>元代</cite><span style="font-size: 12px">（39240）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('明代诗词','/tz_look_poem_desty/明代')">
+                                            <cite>明代</cite><span style="font-size: 12px">（100000）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('清代诗词','/tz_look_poem_desty/清代')">
+                                            <cite>清代</cite><span style="font-size: 12px">（92550）</span></a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="iconfont">&#xe70b;</i>
+                                    <cite>按诗人浏览</cite>
+                                    <i class="iconfont nav_right">&#xe697;</i></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a onclick="xadmin.add_tab('李白诗集','/tz_look_poem_desty/李白')">
+                                            <cite>李白</cite><span style="font-size: 12px">（1108）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('杜甫诗集','/tz_look_poem_desty/杜甫')">
+                                            <cite>杜甫</cite><span style="font-size: 12px">（1358）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('白居易诗集','/tz_look_poem_desty/白居易')">
+                                            <cite>白居易</cite><span style="font-size: 12px">（3082）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('苏轼诗集','/tz_look_poem_desty/苏轼')">
+                                            <cite>苏轼</cite><span style="font-size: 12px">（3268）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('更多诗人诗集','/tz_look_all_poem_desty')">
+                                            <cite>更多...</cite></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="iconfont">&#xe70b;</i>
+                                    <cite>按题材浏览</cite>
+                                    <i class="iconfont nav_right">&#xe697;</i></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a onclick="xadmin.add_tab('五言绝句','/tz_look_poem_desty/五言绝句')">
+                                            <cite>五言绝句</cite><span style="font-size: 12px">（13717）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('七言绝句','/tz_look_poem_desty/七言绝句')">
+                                            <cite>七言绝句</cite><span style="font-size: 12px">（8186）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('五言律诗','/tz_look_poem_desty/五言律诗')">
+                                            <cite>五言律诗</cite><span style="font-size: 12px">（1544）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('七言律诗','/tz_look_poem_desty/七言律诗')">
+                                            <cite>七言律诗</cite><span style="font-size: 12px">（383）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('词','/tz_look_poem_desty/词')">
+                                            <cite>词</cite><span style="font-size: 12px">（9349）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('曲','/tz_look_poem_desty/曲')">
+                                            <cite>曲</cite><span style="font-size: 12px">（1800）</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- 诗人浏览 -->
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="诗词浏览">&#xe705;</i>
+                            <cite>诗人浏览</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="javascript:;">
+                                    <i class="iconfont">&#xe70b;</i>
+                                    <cite>按朝代浏览</cite>
+                                    <i class="iconfont nav_right">&#xe697;</i></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a onclick="xadmin.add_tab('唐代诗人','/tz_look_poemer_desty/唐代')">
+                                            <cite>唐代</cite><span style="font-size: 12px">（2470）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('宋代诗人','/tz_look_poemer_desty/宋代')">
+                                            <cite>宋代</cite><span style="font-size: 12px">（7598）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('元代诗人','/tz_look_poemer_desty/元代')">
+                                            <cite>元代</cite><span style="font-size: 12px">（671）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('明代诗人','/tz_look_poemer_desty/明代')">
+                                            <cite>明代</cite><span style="font-size: 12px">（2760）</span></a>
+                                    </li>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('清代诗人','/tz_look_poemer_desty/清代')">
+                                            <cite>清代</cite><span style="font-size: 12px">（5741）</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- 机器作诗 -->
+                    <li>
+                        <a onclick="xadmin.add_tab('机器作诗','/tz_create_poem')">
+                            <i class="iconfont left-nav-li" lay-tips="机器作诗"><img src="../static/icon/create.png" style="width: 15px;"></i>
+                            <cite>机器作诗</cite></a>
+                    </li>
+                    <!-- 诗词鉴赏 -->
+                    <li>
+                        <a onclick="xadmin.add_tab('诗词鉴赏','/tz_poem_appearance/登岳阳楼')">
+                            <i class="iconfont left-nav-li" lay-tips="诗词鉴赏"><img src="../static/icon/appear.png" style="width: 15px;"></i>
+                            <cite>诗词鉴赏</cite></a>
+                    </li>
+                    <!-- 诗词问答 -->
+                    <li>
+                        <a onclick="xadmin.add_tab('诗词问答','/tz_chat_poem')">
+                            <i class="iconfont left-nav-li" lay-tips="诗词问答"><img src="../static/icon/chat.png" style="width: 15px;"></i>
+                            <cite>诗词问答</cite></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="x-slide_left"></div> -->
+        <!-- 左侧菜单结束 -->
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+            <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+                <ul class="layui-tab-title">
+                    <li class="home">
+                        <i class="layui-icon">&#xe68e;</i>首页</li></ul>
+                <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                    <dl>
+                        <dd data-type="this">关闭当前</dd>
+                        <dd data-type="other">关闭其它</dd>
+                        <dd data-type="all">关闭全部</dd></dl>
+                </div>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <iframe src='/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                    </div>
+                </div>
+                <div id="tab_show"></div>
+            </div>
+        </div>
+        <div class="page-content-bg"></div>
+        <style id="theme_style"></style>
+        <!-- 右侧主体结束 -->
+        <!-- 中部结束 -->
+    </body>
+
+</html>

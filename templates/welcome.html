@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="../static/css/font.css">
+        <link rel="stylesheet" href="../static/css/xadmin.css">
+        <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+        <script src="../static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../static/js/xadmin.js"></script>
+        <script type="text/javascript" src="../static/js/template/welcome.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <style>
+        #produce{
+            font-size: 15px;
+            color: #999;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp:6
+        }
+    </style>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <blockquote class="layui-elem-quote">欢迎浏览：
+                                <span class="x-red">中华古诗词知识图谱</span>！
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">诗词信息</div>
+                        <div class="layui-card-body ">
+                            <ul id="poem_sum" class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                                <!-- welcome.js中动态生成 -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">诗人信息</div>
+                        <div class="layui-card-body ">
+                            <ul id="poemer_sum" class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                                <!-- welcome.js中动态生成 -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                              <ul class="layui-tab-title">
+                                <li class="layui-this">唐代</li>
+                                <li>宋代</li>
+                                <li>元代</li>
+                                <li>明代</li>
+                                <li>清代</li>
+                              </ul>
+                              <div class="layui-tab-content" style="height: auto;">
+                                  <div id="pomer_tab" class="layui-tab-item layui-show">
+
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <style id="welcome_style"></style>
+                <div class="layui-col-md12">
+                    <blockquote class="layui-elem-quote layui-quote-nm">本系统所有权归石家庄铁道大学-信息科学与技术学院</blockquote></div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>
